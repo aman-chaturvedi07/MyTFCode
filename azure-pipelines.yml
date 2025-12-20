@@ -13,6 +13,7 @@ stages:
                 provider: 'azurerm'
                 command: 'init'
                 workingDirectory: '$(System.DefaultWorkingDirectory)/environment/dev'
+                backendAzureRmUseEntraIdForAuthentication: false
                 backendServiceArm: 'myserviceconnection'
                 backendAzureRmOverrideSubscriptionID: 'acd9510d-7e29-433d-8504-d10d34dba654'
                 backendAzureRmResourceGroupName: 'Aman_ka_rg'
