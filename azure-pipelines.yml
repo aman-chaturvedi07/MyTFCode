@@ -73,7 +73,7 @@ stages:
                 provider: 'azurerm'
                 command: 'plan'
                 workingDirectory: '$(System.DefaultWorkingDirectory)/environment/dev'
-                environmentServiceNameAzureRM: 'Infra connection'
+                environmentServiceNameAzureRM: 'myserviceconnection'
 - stage: 
   displayName: Manual validation
   jobs:
@@ -82,18 +82,29 @@ stages:
       steps:
         - task: ManualValidation@1
           inputs:
-            notifyUsers: 'himalayakadiyan@outlook.com'
-            approvers: 'himalayakadiyan@outlook.com'
+            notifyUsers: 'aman.ch07@gmail.com'
+            approvers: 'aman.ch07@gmail.com'
 - stage: 
   displayName: Terraform apply
   jobs:
     - job: 
       steps:
-        - template: inittemplate.yaml
-        - task: TerraformTask@5
-          displayName: Terraform apply
-          inputs:
-            provider: 'azurerm'
-            command: 'apply'
-            workingDirectory: '$(System.DefaultWorkingDirectory)/environment/dev'
-            environmentServiceNameAzureRM: 'Infra connection'
+            - task: TerraformTask@5
+              displayName: Terraform Init
+              inputs:
+                provider: 'azurerm'
+                command: 'init'
+                workingDirectory: '$(System.DefaultWorkingDirectory)/environment/dev'
+                backendServiceArm: 'myserviceconnection'
+                backendAzureRmOverrideSubscriptionID: 'acd9510d-7e29-433d-8504-d10d34dba654'
+                backendAzureRmResourceGroupName: 'Aman_ka_rg'
+                backendAzureRmStorageAccountName: 'amanstacc07'
+                backendAzureRmContainerName: 'aman-ka-container'
+                backendAzureRmKey: 'dev.terraform.tfstate'
+            - task: TerraformTask@5
+              displayName: Terraform apply
+              inputs:
+                provider: 'azurerm'
+                command: 'apply'
+                workingDirectory: '$(System.DefaultWorkingDirectory)/environment/dev'
+                environmentServiceNameAzureRM: 'myserviceconnection'
