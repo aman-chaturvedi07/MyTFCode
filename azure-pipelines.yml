@@ -54,15 +54,26 @@ stages:
   jobs:
     - job: 
       steps:
-      - template: inittemplate.yaml
+            - task: TerraformTask@5
+              displayName: Terraform Init
+              inputs:
+                provider: 'azurerm'
+                command: 'init'
+                workingDirectory: '$(System.DefaultWorkingDirectory)/environment/dev'
+                backendServiceArm: 'myserviceconnection'
+                backendAzureRmOverrideSubscriptionID: 'acd9510d-7e29-433d-8504-d10d34dba654'
+                backendAzureRmResourceGroupName: 'Aman_ka_rg'
+                backendAzureRmStorageAccountName: 'amanstacc07'
+                backendAzureRmContainerName: 'aman-ka-container'
+                backendAzureRmKey: 'dev.terraform.tfstate'
 
-      - task: TerraformTask@5
-        displayName: Terraform plan
-        inputs:
-          provider: 'azurerm'
-          command: 'plan'
-          workingDirectory: '$(WRKDIR)'
-          environmentServiceNameAzureRM: 'Infra connection'
+            - task: TerraformTask@5
+              displayName: Terraform plan
+              inputs:
+                provider: 'azurerm'
+                command: 'plan'
+                workingDirectory: '$(System.DefaultWorkingDirectory)/environment/dev'
+                environmentServiceNameAzureRM: 'Infra connection'
 - stage: 
   displayName: Manual validation
   jobs:
@@ -84,5 +95,5 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'apply'
-            workingDirectory: '$(WRKDIR)'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/environment/dev'
             environmentServiceNameAzureRM: 'Infra connection'
