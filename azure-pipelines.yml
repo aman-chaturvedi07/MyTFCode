@@ -1,3 +1,10 @@
 trigger: none
 pool: My-agent-pool
 
+stages:
+- stage: init
+  displayName: Terraform Init chalega
+  jobs:
+     - job:
+       steps:
+           - 
