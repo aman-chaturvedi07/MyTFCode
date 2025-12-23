@@ -16,9 +16,9 @@ stages:
                 backendAzureRmUseEntraIdForAuthentication: false
                 backendServiceArm: 'myserviceconnection'
                 backendAzureRmOverrideSubscriptionID: 'acd9510d-7e29-433d-8504-d10d34dba654'
-                backendAzureRmResourceGroupName: 'Aman_ka_rg'
-                backendAzureRmStorageAccountName: 'amanstacc07'
-                backendAzureRmContainerName: 'aman-ka-container'
+                backendAzureRmResourceGroupName: 'rg-abhishekaggarwal'
+                backendAzureRmStorageAccountName: 'abhishekaggsa'
+                backendAzureRmContainerName: 'amanstate'
                 backendAzureRmKey: 'dev.terraform.tfstate'
 
 - stage: scanning
@@ -32,7 +32,7 @@ stages:
           continueOnError: true
           inputs:
             targetType: 'inline'
-            script: 'checkov -d "$(System.DefaultWorkingDirectory)" -o junitxml > checkovres.xml'
+            script: 'checkov -d "$(System.DefaultWorkingDirectory)" -o junitxml > checkovtest.xml'
         - task: PublishTestResults@2
           displayName: Checkov Publish Report 
           inputs:
@@ -64,9 +64,9 @@ stages:
                 backendAzureRmUseEntraIdForAuthentication: false
                 backendServiceArm: 'myserviceconnection'
                 backendAzureRmOverrideSubscriptionID: 'acd9510d-7e29-433d-8504-d10d34dba654'
-                backendAzureRmResourceGroupName: 'Aman_ka_rg'
-                backendAzureRmStorageAccountName: 'amanstacc07'
-                backendAzureRmContainerName: 'aman-ka-container'
+                backendAzureRmResourceGroupName: 'rg-abhishekaggarwal'
+                backendAzureRmStorageAccountName: 'abhishekaggsa'
+                backendAzureRmContainerName: 'amanstate'
                 backendAzureRmKey: 'dev.terraform.tfstate'
 
             - task: TerraformTask@5
@@ -100,9 +100,9 @@ stages:
                 backendAzureRmUseEntraIdForAuthentication: false
                 backendServiceArm: 'myserviceconnection'
                 backendAzureRmOverrideSubscriptionID: 'acd9510d-7e29-433d-8504-d10d34dba654'
-                backendAzureRmResourceGroupName: 'Aman_ka_rg'
-                backendAzureRmStorageAccountName: 'amanstacc07'
-                backendAzureRmContainerName: 'aman-ka-container'
+                backendAzureRmResourceGroupName: 'rg-abhishekaggarwal'
+                backendAzureRmStorageAccountName: 'abhishekaggsa'
+                backendAzureRmContainerName: 'amanstate'
                 backendAzureRmKey: 'dev.terraform.tfstate'
             - task: TerraformTask@5
               displayName: Terraform apply
